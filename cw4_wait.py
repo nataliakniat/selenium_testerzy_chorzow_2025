@@ -81,6 +81,69 @@ driver.switch_to.frame(driver.find_element('id', 'iframeResult'))
 name = driver.find_element('xpath', '//*[@id="fname"]')
 name.send_keys("Natalia")
 
+# wprowadz nazwisko
+lastName = driver.find_element('id', 'lname')
+
+if lastName.is_enabled():
+    lastName.send_keys("Burda")
+else:
+    print("Nie można wprowadzic nazwiska")
+
+# zamkniecie zakladki
+driver.close()
+
+driver.switch_to.window(currentWindow)
+print("Aktualne okno po zamknieciu okna: ", driver.title)
+
+# cofniecie w przegladarce
+driver.back()
+
+# link 'checked'
+linkChecked = driver.find_element('xpath', '//*[@id="main"]/table[2]/tbody/tr[6]/td[1]/a')
+linkChecked.click()
+
+# kliknij 'Try it yourself'
+tryItYourself = driver.find_element('xpath', '//*[@id="main"]/div[2]/a')
+tryItYourself.click()
+
+print("Aktualne okno: ", driver.title)
+
+# przełaczenie sie na nową zakładke
+# obecna zakladka
+currentWindow = driver.current_window_handle
+
+# lista wszystkich zakladek (okienek)
+windowsNames = driver.window_handles
+
+# sprwdzic w petli, czy dana zakladka nie jest aktualna
+for window in windowsNames:
+    if window != currentWindow:
+        driver.switch_to.window(window)
+
+print("Aktualne okno po pętli: ", driver.title)
+
+# przełaczenie do iframe
+driver.switch_to.frame(driver.find_element('id', 'iframeResult'))
+
+# wyszukanie elementu do zaznaczenia
+vehicleOption = driver.find_element('name', 'vehicle2')
+
+# jak sprawdzicz, czy cos jest zaznaczone?
+if vehicleOption.is_selected():
+    print("Zaznaczono opcje 2")
+else:
+    print("Nie zaznaczono opcji 2")
+
+# zazneczenie checkboxa
+vehicleOption.click()
+
+# jak sprawdzicz, czy cos jest zaznaczone?
+if vehicleOption.is_selected():
+    print("Zaznaczono opcje pozniej")
+else:
+    print("Nie zaznaczono opcji 2")
+
+driver.save_screenshot("zakonczenie_testu.png")
 
 #zatrzymanie skryptu
 time.sleep(500)
