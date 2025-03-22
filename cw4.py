@@ -1,42 +1,33 @@
-import time
+tests\test_hotel_search.py: 18(TestHotelSearch.test_hotel_search)
+self = < test_hotel_search.TestHotelSearch
+object
+at
+0x000001D758B71D10 >
+setup = None
 
-import pytest
-from selenium import webdriver
-from page_object_pattern.pages.search_hotel import SearchHotelPage
-from page_object_pattern.pages.search_result import SearchResultsPage
 
+def test_hotel_search(self, setup):
+    self.driver.get("http://www.kurs-selenium.pl/")
+    search_hotel_page = SearchHotelPage(self.driver)
+    search_hotel_page.set_city("Dubai")
+    search_hotel_page.set_date_range("14/02/2024", "17/02/2024")
+    search_hotel_page.set_travellers("3", "1")
+    search_hotel_page.perform_search()
 
-class TestHotelSearch:
+    # druga czesc
+    results_page = SearchResultsPage(self.driver)
+    hotel_names = results_page.get_hotel_names()
+    hotel_prices = results_page.get_hotel_prices()
 
-    @pytest.fixture()
-    def setup(self):
-        self.driver = webdriver.Chrome()
-        self.driver.implicitly_wait(10)
-        self.driver.maximize_window()
-        yield
-        self.driver.quit()
+    print(hotel_names)
 
-    def test_hotel_search(self, setup):
-        self.driver.get("http://www.kurs-selenium.pl/")
-        search_hotel_page = SearchHotelPage(self.driver)
-        search_hotel_page.set_city("Dubai")
-        search_hotel_page.set_date_range("14/02/2024", "17/02/2024")
-        search_hotel_page.set_travellers("3","1")
-        search_hotel_page.perform_search()
+> assert hotel_names[0] == "Jumeirah Beach Hotel"
+E
+TypeError: 'NoneType'
+object is not subscriptable
 
-        #druga czesc
-        results_page = SearchResultsPage(self.driver)
-        hotel_names = results_page.get_hotel_names()
-        hotel_prices = results_page.get_hotel_prices()
+test_hotel_search.py: 34: TypeError
 
-        print(hotel_names)
-
-        assert hotel_names[0] == "Jumeirah Beach Hotel"
-        assert hotel_names[1] == "Oasis Beach Tower"
-        assert hotel_names[2] == "Rose Rayhaan Rotana"
-        assert hotel_names[3] == "Hyatt Regency Perth"
-
-        assert hotel_prices[0] == "£14.30"
-        assert hotel_prices[1] == "£32.50"
-        assert hotel_prices[2] == "£52"
-        assert hotel_prices[3] == "£97.50"
+Process
+finished
+with exit code 1
