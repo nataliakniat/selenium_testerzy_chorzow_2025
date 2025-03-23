@@ -9,7 +9,6 @@ driver.get("http://www.kurs-selenium.pl/demo/")
 
 # # uzupełnic dane w formularzu
 city = driver.find_element('xpath', '//span[text()="Search by Hotel or City Name"]')
-# time.sleep(200)
 city.click()
 city = driver.find_element('xpath', '//*[@id="select2-drop"]/div/input')
 city.send_keys("Dubai")
@@ -41,8 +40,19 @@ search = driver.find_element('xpath', '//*[@id="hotels"]/form/div[5]/button')
 search.click()
 
 # nastepna strona
-
 # sprawdzic wyniki
+hotels = driver.find_elements("xpath", "//h4[contains(@class, 'list_title')]")
+#print(len(hotels))
+hotels_name = [hotel.get_attribute("textContent") for hotel in hotels]
+#print(hotels_name)
+
+# for name in hotels_name:
+#     print(name)
+
+assert hotels_name[0] == "Jumeirah Beach Hotel"
+assert hotels_name[1] == "Oasis Beach Tower"
+assert hotels_name[2] == "Rose Rayhaan Rotana"
+assert hotels_name[3] == "Hyatt Regency Perth"
 
 time.sleep(200)
 driver.quit()
