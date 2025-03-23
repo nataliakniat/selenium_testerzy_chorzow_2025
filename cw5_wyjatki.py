@@ -12,7 +12,7 @@ def wait_for_button(driver, element_id):
     locator_find = EC.visibility_of_element_located(locator)
     wait = WebDriverWait(driver, timeout, 0.5)
 
-    return wait.until(locator_find, "Element nie pojawil sie po danym czasie")
+    return wait.until(locator_find,)
 
 # inicjalizacja przeglądarki Chrome
 driver = webdriver.Chrome()
