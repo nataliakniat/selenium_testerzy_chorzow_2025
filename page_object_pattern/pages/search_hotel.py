@@ -12,18 +12,18 @@ class SearchHotelPage:
         self.search_button_xpath = '//*[@id="hotels"]/form/div[5]/button'
 
     def set_city(self, city):
-        city = driver.find_element('xpath', self.search_hotel_span_xpath).click()
-        city = driver.find_element('xpath', self.search_hotel_input_xpath).send_keys(city)
-        city = driver.find_element('xpath', self.search_match_div_xpath).click()
+        self.driver.find_element('xpath', self.search_hotel_span_xpath).click()
+        self.driver.find_element('xpath', self.search_hotel_input_xpath).send_keys(city)
+        self.driver.find_element('xpath', self.search_match_div_xpath).click()
 
     def set_date_range(self, checkin, checkout):
-        checkin = driver.find_element('name', self.checkin_input_name).send_keys(checkin)
-        checkout = driver.find_element('name', self.checkout_input_name).send_keys(checkout)
+        self.driver.find_element('name', self.checkin_input_name).send_keys(checkin)
+        self.driver.find_element('name', self.checkout_input_name).send_keys(checkout)
 
     def set_travellers(self, adults, child):
-        travelleres = driver.find_element('id', self.travellers_input_id).click()
-        adult = driver.find_element('id', self.adult_input_id).clear().send_keys(adults)
-        child = driver.find_element('id', self.child_input_id).clear().send_keys(child)
+        self.driver.find_element('id', self.travellers_input_id).click()
+        self.driver.find_element('id', self.adult_input_id).clear().send_keys(adults)
+        self.driver.find_element('id', self.child_input_id).clear().send_keys(child)
 
     def prerform_search(self):
         self.driver.find_element('xpath', self.search_button_xpath)
